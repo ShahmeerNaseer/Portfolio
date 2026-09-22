@@ -1,0 +1,620 @@
+/* =========================================================
+   SHAHMEER NASEER — PORTFOLIO STYLESHEET
+   Replace the placeholder values marked YOUR_...
+   ========================================================= */
+
+/* 1) THEME + BACKGROUND PLACEHOLDERS */
+:root {
+  --sidebar-bg: #07111d;
+  --sidebar-hover: #142536;
+  --page-bg: #0a1420;
+  --section-bg: #0d1927;
+  --card-bg: #101c2a;
+  --accent: #19a9e5;
+  --text: #f7f9fc;
+  --muted: #aeb9c7;
+  --border: rgba(255, 255, 255, 0.1);
+
+  /* Change this to a color, gradient, or image URL.
+     Examples:
+     --body-background: #101820;
+     --body-background: linear-gradient(135deg, #07111d, #173653);
+     --body-background: url("YOUR_BACKGROUND_IMAGE_URL") center/cover fixed;
+  */
+  --body-background: var(--page-bg);
+}
+
+/* 2) RESET + GLOBAL STRUCTURE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 24px;
+}
+
+body {
+  min-height: 100vh;
+  font-family: "Inter", Arial, sans-serif;
+  line-height: 1.6;
+  color: var(--text);
+  background: var(--body-background); /* EDIT BODY BACKGROUND HERE */
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* 3) FIXED SIDE NAVBAR */
+.sidebar {
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 100;
+  width: 244px;
+  min-height: 100vh;
+  padding: 24px 18px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  background: var(--sidebar-bg);
+  border-right: 1px solid var(--border);
+}
+
+/* Circular profile picture:
+   In your HTML use:
+   <img class="avatar" src="YOUR_PROFILE_PHOTO_URL" alt="Profile photo">
+*/
+.avatar {
+  display: block;
+  width: 104px;
+  height: 104px;
+  flex: 0 0 104px;
+  margin: 0 auto 12px;
+  object-fit: cover;
+  object-position: center;
+  border: 6px solid #243343;
+  border-radius: 50%; /* makes the picture a circle */
+  background: #243343;
+}
+
+/* If your profile photo looks off-center, adjust object-position:
+   object-position: 50% 25%;
+*/
+
+.brand {
+  margin-bottom: 12px;
+  color: var(--text);
+  font-size: 21px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 4) SOCIAL ICON BUTTONS */
+.socials {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-bottom: 30px;
+}
+
+.socials a {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #1b2938;
+  color: #f5f7fa;
+  font-size: 14px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.socials a:hover {
+  background: var(--accent);
+  transform: translateY(-2px);
+}
+
+/* 5) NAVIGATION LINKS */
+.nav {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+}
+
+.nav a,
+.dropdown-toggle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 14px;
+  text-align: left;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav a i,
+.dropdown-toggle > i:first-child {
+  width: 16px;
+  color: #91a1b3;
+}
+
+.nav a:hover,
+.nav a.active,
+.dropdown-toggle:hover {
+  color: var(--text);
+  background: var(--sidebar-hover);
+}
+
+.nav a.active i {
+  color: var(--accent);
+}
+
+.dropdown-toggle .chevron {
+  margin-left: auto;
+  color: var(--accent);
+}
+
+.dropdown-menu {
+  display: none;
+  padding-left: 27px;
+}
+
+.dropdown-menu.open {
+  display: grid;
+}
+
+.dropdown-menu a {
+  padding: 8px 10px;
+  font-size: 13px;
+}
+
+/* 6) MOBILE NAVBAR BUTTON */
+.mobile-top {
+  display: none;
+}
+
+.menu-btn {
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: var(--sidebar-bg);
+  color: var(--text);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* 7) MAIN CONTENT + HERO */
+main {
+  min-width: 0;
+  margin-left: 244px;
+}
+
+.hero {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+
+  /* EDIT: Put your hero image URL inside the quotes.
+     Example: url("images/hero-background.jpg") center/cover no-repeat
+  */
+  background:
+    linear-gradient(90deg, rgba(5, 12, 20, 0.70), rgba(5, 12, 20, 0.30)),
+    linear-gradient(rgba(4, 10, 17, 0.20), rgba(4, 10, 17, 0.58)),
+    url("YOUR_HERO_BACKGROUND_IMAGE_URL") center/cover no-repeat,
+    #293542;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 780px;
+  padding: clamp(28px, 8vw, 110px);
+}
+
+.eyebrow {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 12px 0;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 800;
+  line-height: 1.1;
+  letter-spacing: -2px;
+}
+
+.hero p {
+  color: #e2e8ef;
+  font-size: clamp(17px, 2vw, 22px);
+}
+
+.typed {
+  padding-bottom: 3px;
+  border-bottom: 2px solid var(--accent);
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 28px;
+}
+
+/* 8) BUTTONS */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 19px;
+  border: 1px solid var(--accent);
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.btn.primary {
+  background: var(--accent);
+  color: #03111c;
+}
+
+.btn.outline {
+  background: rgba(5, 12, 20, 0.25);
+  color: var(--text);
+}
+
+/* 9) SECTIONS + SECTION HEADINGS */
+.section {
+  padding: 88px clamp(24px, 6vw, 86px);
+  background: var(--page-bg);
+}
+
+.section:nth-of-type(even) {
+  background: var(--section-bg);
+}
+
+.section-heading {
+  margin-bottom: 30px;
+}
+
+.section-heading h2 {
+  margin-bottom: 8px;
+  font-size: 32px;
+}
+
+.section-heading h2::after {
+  display: block;
+  width: 52px;
+  height: 3px;
+  margin-top: 12px;
+  border-radius: 5px;
+  background: var(--accent);
+  content: "";
+}
+
+.section-heading p,
+.muted {
+  color: var(--muted);
+}
+
+/* 10) ABOUT SECTION */
+.about-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+  align-items: start;
+  gap: 30px;
+}
+
+.about-photo {
+  width: 100%;
+  max-height: 390px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #1b2938;
+}
+
+.about-copy h3 {
+  margin-bottom: 12px;
+  font-size: 23px;
+}
+
+.facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.fact {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--card-bg);
+}
+
+.fact strong {
+  margin-right: 5px;
+  color: var(--accent);
+}
+
+.skill-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.skill {
+  padding: 7px 12px;
+  border: 1px solid #22374a;
+  border-radius: 999px;
+  background: #142536;
+  color: #dce7f2;
+  font-size: 13px;
+}
+
+/* 11) CARDS: SKILLS, PROJECTS, SERVICES */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  overflow: hidden;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-bg);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(25, 169, 229, 0.45);
+}
+
+.card img {
+  display: block;
+  width: 100%;
+  height: 170px;
+  object-fit: cover;
+  background: #243343;
+}
+
+.card-body {
+  padding: 20px;
+}
+
+.card h3 {
+  margin-bottom: 8px;
+  font-size: 18px;
+}
+
+.card p {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 15px 12px 0 0;
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.service-icon {
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 25px;
+}
+
+/* 12) RESUME TIMELINE */
+.timeline {
+  display: grid;
+  gap: 22px;
+  margin-left: 8px;
+  padding-left: 24px;
+  border-left: 2px solid #284257;
+}
+
+.timeline-item {
+  position: relative;
+  padding: 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--card-bg);
+}
+
+.timeline-item::before {
+  position: absolute;
+  top: 24px;
+  left: -32px;
+  width: 12px;
+  height: 12px;
+  border: 3px solid var(--page-bg);
+  border-radius: 50%;
+  background: var(--accent);
+  content: "";
+}
+
+.timeline-item .date {
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.timeline-item h3 {
+  margin: 5px 0;
+}
+
+/* 13) CONTACT SECTION */
+.contact-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: 22px;
+}
+
+.contact-box {
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  background: var(--card-bg);
+}
+
+.contact-line {
+  display: flex;
+  gap: 13px;
+  margin: 15px 0;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.contact-line i {
+  margin-top: 4px;
+  color: var(--accent);
+}
+
+form {
+  display: grid;
+  gap: 12px;
+}
+
+input,
+textarea {
+  width: 100%;
+  padding: 13px 14px;
+  border: 1px solid #26394b;
+  border-radius: 7px;
+  outline: none;
+  background: var(--page-bg);
+  color: var(--text);
+  font: inherit;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(25, 169, 229, 0.12);
+}
+
+textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+form button {
+  cursor: pointer;
+}
+
+.note {
+  margin-top: 10px;
+  color: #8797a8;
+  font-size: 12px;
+}
+
+/* 14) FOOTER */
+footer {
+  padding: 24px;
+  background: var(--sidebar-bg);
+  color: #8392a3;
+  font-size: 13px;
+  text-align: center;
+}
+
+/* 15) RESPONSIVE: TABLETS */
+@media (max-width: 1000px) {
+  .sidebar {
+    width: 210px;
+  }
+
+  main {
+    margin-left: 210px;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-grid,
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 16) RESPONSIVE: MOBILE */
+@media (max-width: 720px) {
+  .sidebar {
+    width: 260px;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
+
+  main {
+    margin-left: 0;
+  }
+
+  .mobile-top {
+    position: fixed;
+    top: 12px;
+    left: 12px;
+    z-index: 110;
+    display: flex;
+  }
+
+  .hero {
+    min-height: 92vh;
+  }
+
+  .hero-content {
+    padding: 26px;
+  }
+
+  .section {
+    padding: 68px 22px;
+  }
+
+  .cards,
+  .facts {
+    grid-template-columns: 1fr;
+  }
+}

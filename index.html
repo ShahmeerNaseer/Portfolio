@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Shahmeer Naseer — web developer portfolio" />
+  <title>Shahmeer Naseer | Portfolio</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    :root {
+      --sidebar: #07111d;
+      --sidebar-soft: #111e2d;
+      --accent: #19a9e5;
+      --text: #f7f9fc;
+      --muted: #aeb9c7;
+      --panel: #101c2a;
+      --line: rgba(255,255,255,.1);
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; scroll-padding-top: 24px; }
+    body { font-family: Inter, sans-serif; background: #0a1420; color: var(--text); line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    .sidebar {
+      position: fixed; inset: 0 auto 0 0; width: 244px; z-index: 10;
+      background: var(--sidebar); display: flex; flex-direction: column; align-items: center;
+      padding: 24px 18px; border-right: 1px solid rgba(255,255,255,.06);
+    }
+    .avatar {
+      width: 100px; height: 80px; border-radius: 50%; object-fit: cover;
+      border: 6px solid #243343; margin-bottom: 12px; background: #243343;
+    }
+    .brand { font-size: 21px; font-weight: 700; margin-bottom: 12px; }
+    .socials { display: flex; gap: 9px; margin-bottom: 30px; }
+    .socials a {
+      width: 25px; height: 25px; border-radius: 50%; display: grid; place-items: center;
+      background: #1b2938; color: #f5f7fa; font-size: 14px; transition: .2s;
+    }
+    .socials a:hover { background: var(--accent); transform: translateY(-2px); }
+    .nav { width: 100%; display: grid; }
+    .nav a, .dropdown-toggle {
+      width: 100%; display: flex; align-items: center; gap: 5px; padding: 12px 10px;
+      border-radius: 8px; color: var(--muted); font-size: 14px; transition: .2s;
+      background: transparent; border: 0; cursor: pointer; font-family: inherit; text-align: left;
+    }
+    .nav a i, .dropdown-toggle i:first-child { width: 16px; color: #91a1b3; }
+    .nav a:hover, .nav a.active, .dropdown-toggle:hover { color: white; background: #142536; }
+    .nav a.active i { color: var(--accent); }
+    .dropdown-toggle .chevron { margin-left: auto; color: var(--accent); }
+    .dropdown-menu { display: none; padding-left: 27px; }
+    .dropdown-menu.open { display: grid; }
+    .dropdown-menu a { padding: 8px 10px; font-size: 13px; }
+    .mobile-top { display: none; }
+    main { margin-left: 244px; }
+    .hero {
+      min-height: 100vh; position: relative; display: flex; align-items: center; overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(5,12,20,.70), rgba(5,12,20,.30)),
+        linear-gradient(rgba(4,10,17,.20), rgba(4,10,17,.58)),
+        url("YOUR_HERO_BACKGROUND_IMAGE_URL") center/cover no-repeat,
+        #293542;
+    }
+    .hero-content { position: relative; z-index: 1; padding: 8vw; max-width: 720px; }
+    .eyebrow { color: var(--accent); text-transform: uppercase; letter-spacing: 3px; font-size: 12px; font-weight: 700; }
+    h1 { font-size: clamp(42px, 5vw, 68px); line-height: 1.1; margin: 12px 0; letter-spacing: -2px; }
+    .hero p { font-size: clamp(17px, 2vw, 22px); color: #e2e8ef; }
+    .typed { border-bottom: 2px solid var(--accent); padding-bottom: 3px; }
+    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .btn { padding: 12px 19px; border-radius: 7px; font-size: 14px; font-weight: 600; border: 1px solid var(--accent); }
+    .btn.primary { background: var(--accent); color: #03111c; }
+    .btn.outline { background: rgba(5,12,20,.25); }
+    .section { padding: 88px clamp(24px, 6vw, 86px); }
+    .section:nth-child(odd) { background: #0d1927; }
+    .section:nth-child(even) { background: #0a1420; }
+    .section-heading { margin-bottom: 30px; }
+    .section-heading h2 { font-size: 32px; margin-bottom: 8px; }
+    .section-heading h2:after { content: ""; display: block; width: 52px; height: 3px; background: var(--accent); margin-top: 12px; border-radius: 5px; }
+    .section-heading p, .muted { color: var(--muted); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 30px; align-items: start; }
+    .about-photo { width: 100%; max-height: 390px; object-fit: cover; border-radius: 12px; background: #1b2938; }
+    .about-copy h3 { font-size: 23px; margin-bottom: 12px; }
+    .facts { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 20px 0; }
+    .fact { padding: 13px; background: var(--panel); border: 1px solid var(--line); border-radius: 8px; }
+    .fact strong { color: var(--accent); margin-right: 5px; }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 9px; margin-top: 18px; }
+    .skill { background: #142536; border: 1px solid #22374a; border-radius: 999px; padding: 7px 12px; font-size: 13px; color: #dce7f2; }
+    .cards { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 18px; }
+    .card { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+    .card img { width: 100%; height: 170px; object-fit: cover; background: #243343; display: block; }
+    .card-body { padding: 20px; }
+    .card h3 { font-size: 18px; margin-bottom: 8px; }
+    .card p { color: var(--muted); font-size: 14px; }
+    .card-link { display: inline-flex; gap: 8px; color: var(--accent); margin-top: 15px; font-size: 14px; font-weight: 600; }
+    .timeline { border-left: 2px solid #284257; margin-left: 8px; padding-left: 24px; display: grid; gap: 22px; }
+    .timeline-item { position: relative; background: var(--panel); padding: 20px; border-radius: 10px; border: 1px solid var(--line); }
+    .timeline-item:before { content: ""; position: absolute; left: -32px; top: 24px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 3px solid #0a1420; }
+    .timeline-item .date { color: var(--accent); font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .timeline-item h3 { margin: 5px 0; }
+    .service-icon { font-size: 25px; color: var(--accent); margin-bottom: 12px; }
+    .contact-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 22px; }
+    .contact-box { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 22px; }
+    .contact-line { display: flex; gap: 13px; margin: 15px 0; color: var(--muted); overflow-wrap: anywhere; }
+    .contact-line i { color: var(--accent); margin-top: 4px; }
+    form { display: grid; gap: 12px; }
+    input, textarea { width: 100%; padding: 13px 14px; background: #0a1420; color: white; border: 1px solid #26394b; border-radius: 7px; font: inherit; }
+    textarea { min-height: 130px; resize: vertical; }
+    form button { cursor: pointer; border: 0; font: inherit; }
+    .note { font-size: 12px; color: #8797a8; margin-top: 10px; }
+    footer { text-align: center; padding: 24px; color: #8392a3; background: #07111d; font-size: 13px; }
+    @media (max-width: 1000px) {
+      .sidebar { width: 210px; } main { margin-left: 210px; }
+      .cards { grid-template-columns: repeat(2, minmax(0,1fr)); }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .sidebar { transform: translateX(-100%); transition: transform .25s; width: 260px; }
+      .sidebar.open { transform: translateX(0); }
+      main { margin-left: 0; }
+      .mobile-top { display: flex; position: fixed; z-index: 9; top: 12px; left: 12px; }
+      .menu-btn { width: 44px; height: 44px; border: 1px solid var(--line); border-radius: 9px; background: #07111deF; color: white; font-size: 18px; }
+      .hero { min-height: 92vh; }
+      .hero-content { padding: 26px; }
+      .section { padding: 68px 22px; }
+      .cards { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="mobile-top"><button class="menu-btn" id="menuBtn" aria-label="Open navigation"><i class="fa-solid fa-bars"></i></button></div>
+
+  <aside class="sidebar" id="sidebar">
+    <!-- Replace the image URL below with your profile photo -->
+    <img class="avatar" src="pfp.jpg" alt="Shahmeer Naseer profile photo" onerror="this.style.visibility='hidden'">
+    <div class="brand">Shahmeer Naseer</div>
+    <div class="socials">
+      <a href="https://github.com/ShahmeerNaseer" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+      <a href="https://linkedin.com/in/shahmeer-naseer-286256385" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+      <a href="https://instagram.com/shahmeer2021" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+      <a href="https://fiverr.com/shahmeerkong" aria-label="Fiverr"><i class="fa-solid fa-briefcase"></i></a>
+      <a href="mailto:shahmeerkong@gmail.com" aria-label="Email"><i class="fa-regular fa-envelope"></i></a>
+    </div>
+    <nav class="nav">
+      <a class="active" href="#home"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="#about"><i class="fa-regular fa-user"></i>About</a>
+      <a href="#resume"><i class="fa-regular fa-file-lines"></i>Resume</a>
+      <a href="#portfolio"><i class="fa-regular fa-images"></i>Portfolio</a>
+      <a href="#services"><i class="fa-solid fa-server"></i>Services</a>
+      <div>
+        <button class="dropdown-toggle" id="dropdownToggle"><i class="fa-regular fa-folder-open"></i>Dropdown<i class="fa-solid fa-chevron-down chevron"></i></button>
+        <div class="dropdown-menu" id="dropdownMenu">
+          <a href="#skills">Skills</a>
+          <a href="#education">Education</a>
+        </div>
+      </div>
+      <a href="#contact"><i class="fa-regular fa-envelope"></i>Contact</a>
+    </nav>
+  </aside>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <div class="eyebrow">Welcome to my portfolio</div>
+        <h1>Shahmeer Naseer</h1>
+        <p>I'm a <span class="typed" id="typedText">Web Developer</span></p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#portfolio">Explore my work <i class="fa-solid fa-arrow-right"></i></a>
+          <a class="btn outline" href="#contact">Contact me</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="section-heading"><h2>About</h2><p>A little introduction about me and what I enjoy building.</p></div>
+      <div class="about-grid">
+        <img class="about-photo" src="pfp.jpg" alt="About me image" onerror="this.style.display='none'">
+        <div class="about-copy">
+          <h3>Aspiring Web Developer & UI Designer</h3>
+          <p class="muted">I'm Shahmeer, a student and web developer who enjoys creating clean, responsive websites and experimenting with modern web technologies. I'm currently growing my skills through personal projects and looking for opportunities to learn and collaborate.</p>
+          <div class="facts">
+            <div class="fact"><strong>Location:</strong> Karachi, Pakistan</div>
+            <div class="fact"><strong>Focus:</strong> Frontend & full-stack learning</div>
+            <div class="fact"><strong>Availability:</strong> Open to suitable opportunities</div>
+            <div class="fact"><strong>Email:</strong> shahmeerkong@gmail.com</div>
+          </div>
+          <p class="muted">Replace the placeholders throughout this template with your own details, links, and project information.</p>
+          <div class="skill-list">
+            <span class="skill">HTML</span><span class="skill">CSS</span><span class="skill">JavaScript</span>
+            <span class="skill">Bootstrap</span><span class="skill">jQuery</span><span class="skill">React</span>
+            <span class="skill">Node.js</span><span class="skill">Express.js</span><span class="skill">MongoDB</span>
+            <span class="skill">Figma</span><span class="skill">Git & GitHub</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="section-heading"><h2>Skills</h2><p>Technologies and tools I use or am currently learning.</p></div>
+      <div class="cards">
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-code"></i></div><h3>Frontend</h3><p>HTML, CSS, JavaScript, Bootstrap, jQuery, React.js.</p></div></article>
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-database"></i></div><h3>Backend & Data</h3><p>Node.js, Express.js, MongoDB. </p></div></article>
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-pen-ruler"></i></div><h3>Design & Tools</h3><p>Figma, UI prototyping, VS Code, Git, and GitHub.</p></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="resume">
+      <div class="section-heading"><h2>Resume</h2><p>My education and experience. Edit or remove any item to match your background.</p></div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="date">2023 — Present</div>
+          <h3>Freelance / Personal Web Projects</h3><p class="muted">MERN Stack Developer</p>
+        </div>
+        <div class="timeline-item" id="education">
+          <div class="date">2026</div>
+          <h3>Course or Certification Name</h3><p class="muted">MERN Stack Development</p>
+          <p class="muted">Saylani Mass IT Training and Employment Program</p>
+        </div>
+      </div>
+      <div style="margin-top:24px"><a class="btn primary" href="ShahmeerNaseer.pdf" target="_blank" rel="noreferrer">View / Download CV <i class="fa-solid fa-download"></i></a></div>
+    </section>
+
+    <section class="section" id="portfolio">
+      <div class="section-heading"><h2>Portfolio</h2><p>A selection of projects. Replace these sample cards with your real work.</p></div>
+      <div class="cards">
+        <article class="card">
+          <img src="./vibely.png" alt="Project 1 preview" onerror="this.style.display='none'">
+          <div class="card-body"><h3>Vibely — Social App</h3><p>YOUR_PROJECT_DESCRIPTION — mention the problem, key features, and technologies used.</p><a class="card-link" href="https://vibely-smoky.vercel.app/" target="_blank" rel="noreferrer">Live demo <i class="fa-solid fa-arrow-up-right-from-square"></i></a><a class="card-link" href="https://github.com/ShahmeerNaseer/Vibely" target="_blank" rel="noreferrer">Source code <i class="fa-brands fa-github"></i></a></div>
+        </article>
+        <article class="card">
+          <img src="./Hospital.png" alt="Project 2 preview" onerror="this.style.display='none'">
+          <div class="card-body">Hospital Management System<h3></h3><p>YOUR_PROJECT_DESCRIPTION — add features such as search, filtering, and responsive layout if applicable.</p><a class="card-link" href="https://hospital-management-system-phi-fawn.vercel.app/" target="_blank" rel="noreferrer">Live demo <i class="fa-solid fa-arrow-up-right-from-square"></i></a><a class="card-link" href="https://github.com/ShahmeerNaseer/HospitalManagementSystem" target="_blank" rel="noreferrer">Source code <i class="fa-brands fa-github"></i></a></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="section-heading"><h2>Services</h2><p>Update these based on the services you currently offer.</p></div>
+      <div class="cards">
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-laptop-code"></i></div><h3>Website Development</h3><p>Responsive landing pages and websites built around a client's needs.</p></div></article>
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-mobile-screen-button"></i></div><h3>Responsive Design</h3><p>Layouts designed to work across desktop, tablet, and mobile screens.</p></div></article>
+        <article class="card"><div class="card-body"><div class="service-icon"><i class="fa-solid fa-object-group"></i></div><h3>UI Design / Prototyping</h3><p>Simple interface concepts and clickable prototypes using Figma.</p></div></article>
+      </div>
+    </section>
+
+    <section class="section" id="contact">
+      <div class="section-heading"><h2>Contact</h2><p>Have a project idea or want to connect? Send me a message.</p></div>
+      <div class="contact-grid">
+        <div class="contact-box">
+          <h3>Contact details</h3>
+          <div class="contact-line"><i class="fa-solid fa-location-dot"></i><span>Karachi, Pakistan</span></div>
+          <div class="contact-line"><i class="fa-regular fa-envelope"></i><span>shahmeerkong@gmail.com</span></div>
+          <div class="contact-line"><i class="fa-brands fa-github"></i><span>github.com/ShahmeerNaseer</span></div>
+          <p class="note">Replace the email and profile link if needed.</p>
+        </div>
+        <div class="contact-box">
+          <form id="contactForm">
+            <input id="visitorName" type="text" placeholder="Your name" required>
+            <input id="visitorEmail" type="email" placeholder="Your email" required>
+            <input id="messageSubject" type="text" placeholder="Subject" required>
+            <textarea id="visitorMessage" placeholder="Your message" required></textarea>
+            <button class="btn primary" type="submit">Prepare email <i class="fa-regular fa-paper-plane"></i></button>
+          </form>
+          <p class="note">This demo uses your device's email app; it does not send or store messages on a server.</p>
+        </div>
+      </div>
+    </section>
+    <footer>© <span id="year"></span> Shahmeer Naseer · Built with HTML, CSS & JavaScript</footer>
+  </main>
+
+  <script>
+    const roles = ["Web Developer", "Frontend Developer", "UI Designer", "Freelancer"];
+    let roleIndex = 0;
+    const typedText = document.getElementById("typedText");
+    setInterval(() => {
+      roleIndex = (roleIndex + 1) % roles.length;
+      typedText.textContent = roles[roleIndex];
+    }, 2200);
+
+    const sidebar = document.getElementById("sidebar");
+    document.getElementById("menuBtn").addEventListener("click", () => sidebar.classList.toggle("open"));
+    document.getElementById("dropdownToggle").addEventListener("click", () => {
+      document.getElementById("dropdownMenu").classList.toggle("open");
+    });
+
+    document.querySelectorAll(".nav a").forEach(link => {
+      link.addEventListener("click", () => {
+        document.querySelectorAll(".nav a").forEach(item => item.classList.remove("active"));
+        link.classList.add("active");
+        sidebar.classList.remove("open");
+      });
+    });
+
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    document.getElementById("contactForm").addEventListener("submit", event => {
+      event.preventDefault();
+      const recipient = "shahmeerkong@gmail.com";
+      const subject = encodeURIComponent(document.getElementById("messageSubject").value);
+      const body = encodeURIComponent(
+        "From: " + document.getElementById("visitorName").value +
+        " (" + document.getElementById("visitorEmail").value + ")\n\n" +
+        document.getElementById("visitorMessage").value
+      );
+      window.location.href = `mailto:${recipient}?subject=${subject}&body=${body}`;
+    });
+  </script>
+</body>
+</html>
